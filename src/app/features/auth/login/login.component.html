@@ -1,0 +1,178 @@
+<div style="
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('/assets/images/lands_sall_bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+">
+    <!-- Overlay pour améliorer la lisibilité -->
+    <div style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(2px);
+    "></div>
+    
+    <form
+        tuiAppearance="floating"
+        tuiCardLarge
+        tuiForm="m"
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+        style="
+            width: 450px; 
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        "
+    >
+        <header tuiHeader>
+            <h2 tuiTitle>
+                <span style="color: #498229;">
+                    {{ form.get('isLogin')?.value ? 'Connexion' : 'Inscription' }}
+                </span>
+                <span tuiSubtitle>{{ form.get('isLogin')?.value ? 'Connectez-vous à votre compte' : 'Créez votre compte' }}</span>
+            </h2>
+            <span tuiAccessories>
+                <tui-segmented>
+                    <label>
+                        <input
+                            formControlName="isLogin"
+                            type="radio"
+                            [value]="true"
+                        />
+                        Connexion
+                    </label>
+                    <label>
+                        <input
+                            formControlName="isLogin"
+                            type="radio"
+                            [value]="false"
+                        />
+                        Inscription
+                    </label>
+                </tui-segmented>
+            </span>
+        </header>
+
+        <!-- Message d'erreur -->
+        <div *ngIf="errorMessage" style="margin: 1rem 0; padding: 0.75rem; background-color: #fee; border: 1px solid #fcc; border-radius: 4px; color: #c33;">
+            {{ errorMessage }}
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
+            <!-- Champs pour l'inscription -->
+            <ng-container *ngIf="!form.get('isLogin')?.value">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <tui-textfield>
+                        <label tuiLabel>Nom</label>
+                        <input
+                            formControlName="name"
+                            placeholder="Votre nom"
+                            tuiTextfield
+                        />
+                    </tui-textfield>
+                    <tui-error
+                        formControlName="name"
+                        [error]="[] | tuiFieldError | async"
+                    />
+
+                    <tui-textfield>
+                        <label tuiLabel>Prénom</label>
+                        <input
+                            formControlName="firstName"
+                            placeholder="Votre prénom"
+                            tuiTextfield
+                        />
+                    </tui-textfield>
+                    <tui-error
+                        formControlName="firstName"
+                        [error]="[] | tuiFieldError | async"
+                    />
+                </div>
+
+                <tui-textfield>
+                    <label tuiLabel>Téléphone</label>
+                    <input
+                        formControlName="phoneNumber"
+                        placeholder="0123456789"
+                        tuiTextfield
+                        type="tel"
+                    />
+                </tui-textfield>
+                <tui-error
+                    formControlName="phoneNumber"
+                    [error]="[] | tuiFieldError | async"
+                />
+            </ng-container>
+
+            <tui-textfield>
+                <label tuiLabel>Email</label>
+                <input
+                    formControlName="email"
+                    placeholder="exemple@email.com"
+                    tuiTextfield
+                    type="email"
+                />
+            </tui-textfield>
+            <tui-error
+                formControlName="email"
+                [error]="[] | tuiFieldError | async"
+            />
+
+            <tui-textfield>
+                <label tuiLabel>Mot de passe</label>
+                <input
+                    formControlName="password"
+                    placeholder="Votre mot de passe"
+                    tuiTextfield
+                    type="password"
+                />
+            </tui-textfield>
+            <tui-error
+                formControlName="password"
+                [error]="[] | tuiFieldError | async"
+            />
+
+            <ng-container *ngIf="!form.get('isLogin')?.value">
+                <tui-textfield>
+                    <label tuiLabel>Confirmer le mot de passe</label>
+                    <input
+                        formControlName="confirmPassword"
+                        placeholder="Confirmez votre mot de passe"
+                        tuiTextfield
+                        type="password"
+                    />
+                </tui-textfield>
+                <tui-error
+                    formControlName="confirmPassword"
+                    [error]="[] | tuiFieldError | async"
+                />
+            </ng-container>
+        </div>
+
+        <footer style="margin-top: 2rem; display: flex; justify-content: flex-end; gap: 1rem;">
+            <button
+                tuiButton
+                type="submit"
+                [disabled]="isLoading"
+                style="background-color: #1b1e16; color: white;"
+            >
+                <span *ngIf="isLoading">Chargement...</span>
+                <span *ngIf="!isLoading">{{ form.get('isLogin')?.value ? 'Se connecter' : 'S\'inscrire' }}</span>
+            </button>
+        </footer>
+    </form>
+</div>
