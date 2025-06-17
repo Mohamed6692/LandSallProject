@@ -165,7 +165,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.login(credentials).subscribe({
       next: (response) => {
         console.log('Connexion réussie:', response);
-        const successMessage = response.message || 'Connexion réussie !';
+        const successMessage = response.message || 'Connexion réussi2 !';
         this.setMessage(successMessage, false, false);
         this.notificationService.showSuccess(successMessage);
         this.isLoading = false;

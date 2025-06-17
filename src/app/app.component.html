@@ -1,5 +1,5 @@
 <tui-root>
-  <app-navbar></app-navbar>
+  <app-navbar *ngIf="showNavbar"></app-navbar>
   <router-outlet />
   <app-notification></app-notification>
 </tui-root>
