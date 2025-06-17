@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap, catchError, throwError } from 'rxjs';
 import { AuthRequest, AuthResponse, UserDTO, UserProfile } from '../../shared/models/user.model';
 import { ApiService } from './api.service';
 
@@ -23,20 +23,35 @@ export class AuthService {
     const user = localStorage.getItem('user');
     
     if (token && user) {
-      this.currentUserSubject.next(JSON.parse(user));
+      try {
+        const userData = JSON.parse(user);
+        this.currentUserSubject.next(userData);
+      } catch (error) {
+        console.error('Erreur lors du parsing des données utilisateur:', error);
+        this.clearAuthData();
+      }
     }
   }
 
   login(credentials: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.apiService.loginUrl, credentials)
-      .pipe(
-        tap(response => {
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('user', JSON.stringify(response.user));
-          this.currentUserSubject.next(response.user);
-        })
-      );
+    console.log('Données envoyées pour la connexion:', credentials); // 👈 Ajout du log
+  
+    this.clearAuthData();
+  
+    return this.http.post<AuthResponse>(this.apiService.loginUrl, credentials).pipe(
+      tap(response => {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
+        this.currentUserSubject.next(response.user);
+      }),
+      catchError(error => {
+        console.error('Erreur de connexion:', error);
+        this.clearAuthData();
+        return throwError(() => error);
+      })
+    );
   }
+  
 
   register(userData: UserDTO): Observable<any> {
     return this.http.post(this.apiService.registerUrl, userData);
@@ -47,13 +62,18 @@ export class AuthService {
   }
 
   logout(): void {
+    this.clearAuthData();
+  }
+
+  private clearAuthData(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.currentUserSubject.next(null);
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    return !!token;
   }
 
   getToken(): string | null {
@@ -70,5 +90,9 @@ export class AuthService {
 
   getCurrentUserValue(): UserProfile | null {
     return this.currentUserSubject.value;
+  }
+
+  refreshAuthState(): void {
+    this.loadStoredUser();
   }
 } 

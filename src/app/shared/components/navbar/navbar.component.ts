@@ -76,10 +76,15 @@ export class NavbarComponent implements OnInit {
     this.currentUser$ = this.authService.currentUser$;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Rafraîchir l'état d'authentification au démarrage
+    this.authService.refreshAuthState();
+  }
 
   logout(): void {
+    console.log('Déconnexion en cours...');
     this.authService.logout();
+    console.log('Déconnexion terminée, redirection vers login...');
     this.router.navigate(['/auth/login']);
   }
 
