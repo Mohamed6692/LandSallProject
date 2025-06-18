@@ -1,0 +1,399 @@
+// Variables de couleurs
+$primary-color: #498229;
+$primary-hover: #3a6a1f;
+$secondary-color: #1b1e16;
+$secondary-hover: #2a2f1f;
+$danger-color: #dc3545;
+$danger-hover: #c82333;
+$text-dark: #1b1e16;
+$text-muted: #6c757d;
+$border-color: #dee2e6;
+$bg-light: #f8f9fa;
+$accent-color: #8bc34a;
+
+// Container principal
+.dashboard-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// Header du dashboard avec graphique en barres
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.7rem;
+}
+
+// Graphique en barres
+.dashboard-bar {
+  block-size: 2rem;
+  flex-shrink: 0;
+
+  --tui-chart-categorical-00: #5fb730; // Or
+  --tui-chart-categorical-01: #87ceeb; // Bleu ciel
+  --tui-chart-categorical-02: #ffc0cb; // Rose
+}
+
+// Titre principal avec style Taiga UI
+.dashboard-title {
+  color: $text-dark;
+  margin-bottom: 0; // Supprimé car maintenant dans le header
+  
+  // Utilisation des styles Taiga UI tui-text_h6
+  &.tui-text_h6 {
+    font-family: var(--tui-font-heading-6);
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 1.2;
+  }
+}
+
+// Carte d'informations utilisateur
+.user-info-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+
+  h2 {
+    color: $primary-color;
+    margin-bottom: 1rem;
+  }
+}
+
+.user-details {
+  display: grid;
+  gap: 0.5rem;
+}
+
+// Carte des actions
+.actions-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+
+  h2 {
+    color: $primary-color;
+    margin-bottom: 1rem;
+  }
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+// Boutons d'action
+.action-btn {
+  border: none;
+  padding: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: 500;
+
+  &.primary {
+    background-color: $primary-color;
+    color: white;
+
+    &:hover {
+      background-color: $primary-hover;
+    }
+  }
+
+  &.secondary {
+    background-color: $secondary-color;
+    color: white;
+
+    &:hover {
+      background-color: $secondary-hover;
+    }
+  }
+}
+
+// Carte des graphiques
+.charts-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+
+  h2 {
+    color: $primary-color;
+    margin-bottom: 1.5rem;
+  }
+}
+
+// Contrôleur d'index
+.index-controller {
+  max-inline-size: 20rem;
+  margin-bottom: 1.5rem;
+}
+
+// Wrapper des graphiques
+.charts-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0rem;
+  gap: 3rem;
+  flex-wrap: wrap;
+
+  --tui-chart-categorical-00: var(--tui-chart-categorical-12);
+  --tui-chart-categorical-01: var(--tui-chart-categorical-01);
+  --tui-chart-categorical-02: var(--tui-chart-categorical-03);
+  --tui-chart-categorical-03: var(--tui-chart-categorical-09);
+}
+
+.chart-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  
+  // Réduction de la taille du texte dans les graphiques
+  ::ng-deep {
+    font-size: 0.75rem !important;
+    font-weight: 500;
+    
+    // Texte principal (Total des terrains) - RÉDUIT
+    > div:first-child {
+      font-size: 0.6rem !important;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+      line-height: 1.2;
+    }
+    
+    // Texte secondaire (Disponibles, Valeur totale)
+    > div:not(:first-child) {
+      font-size: 0.65rem !important;
+      font-weight: 400;
+      opacity: 0.8;
+    }
+    
+    // Montant (123456000 CFA)
+    span {
+      font-size: 0.8rem !important;
+      font-weight: 700;
+      color: $primary-color;
+    }
+  }
+}
+
+// Classes pour réduire la taille des graphiques
+.chart-small {
+  width: 120px;
+  height: 120px;
+  
+  ::ng-deep svg {
+    width: 120px !important;
+    height: 120px !important;
+  }
+}
+
+.chart-medium {
+  width: 150px;
+  height: 150px;
+  
+  ::ng-deep svg {
+    width: 150px !important;
+    height: 150px !important;
+  }
+}
+
+.chart-large {
+  width: 180px;
+  height: 180px;
+  
+  ::ng-deep svg {
+    width: 180px !important;
+    height: 180px !important;
+  }
+}
+
+// Titre centré des graphiques
+.charts-title {
+  text-align: center;
+  color: $primary-color;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.chart-small {
+  width: 120px;
+  height: 120px;
+
+  ::ng-deep svg {
+    width: 120px !important;
+    height: 120px !important;
+  }
+}
+
+
+// Responsive design pour les graphiques
+@media (max-width: 768px) {
+  .charts-wrapper {
+    flex-direction: column;
+    align-items: center;
+    
+    .chart-item {
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+// Section de test de déconnexion
+.logout-test-section {
+  background: $bg-light;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid $border-color;
+
+  h3 {
+    color: $text-muted;
+    margin-bottom: 1rem;
+  }
+}
+
+.logout-btn {
+  background-color: $danger-color;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: $danger-hover;
+  }
+}
+
+.logout-description {
+  margin-top: 0.5rem;
+  color: $text-muted;
+  font-size: 0.9rem;
+}
+
+// Conteneur pour le groupe de boutons
+.button-group-container {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid $border-color;
+}
+
+// Header du groupe de boutons
+.button-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $border-color;
+  
+  h3 {
+    color: $primary-color;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+}
+
+// Bouton de fermeture
+.close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: var(--tui-base-02);
+  color: var(--tui-text-02);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  font-weight: bold;
+  
+  &:hover {
+    background: var(--tui-base-03);
+    color: var(--tui-text-01);
+    transform: scale(1.1);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// Styles pour les boutons d'action dans le groupe
+::ng-deep .button-group-container .action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: var(--tui-base-02);
+  color: var(--tui-text-01);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+  
+  &:hover {
+    background: var(--tui-base-03);
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  tui-icon {
+    font-size: 1rem;
+  }
+}
+
+// Responsive design pour le groupe de boutons
+@media (max-width: 768px) {
+  .button-group-container {
+    margin: 1rem 0;
+    padding: 1rem;
+  }
+  
+  .button-group-header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    
+    h3 {
+      font-size: 1rem;
+    }
+  }
+  
+  .close-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+  
+  ::ng-deep .button-group-container .action-btn {
+    justify-content: center;
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
+} 

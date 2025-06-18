@@ -1,0 +1,108 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <tui-bar
+      size="s"
+      class="dashboard-bar"
+      [value]="barValue"
+    />
+    <h1 class="dashboard-title tui-text_h6">Dashboard administrateur</h1>
+  </div>
+    <!-- Section des graphiques -->
+    <div class="charts-car">
+      <div class="charts-wrapper">
+          <tui-arc-chart
+              size="m"
+              class="chart-item"
+              [value]="value"
+              [(activeItemIndex)]="activeItemIndex"
+          >
+              Total des terrains
+          </tui-arc-chart>
+          <tui-arc-chart
+              size="m"
+              class="chart-item"
+              [value]="value"
+              [(activeItemIndex)]="activeItemIndex"
+          >
+              Total des terrains
+              <div>Disponibles</div>
+          </tui-arc-chart>
+          <tui-arc-chart
+              size="l"
+              class="chart-item"
+              [value]="value"
+              [(activeItemIndex)]="activeItemIndex"
+          >
+              <span>{{ 12345600000 | tuiAmount: 'CFA' | async }}</span>
+              <div>Valeur totale</div>
+          </tui-arc-chart>
+         
+      </div>
+      <h2 class="charts-title">Statistiques des terrains</h2>
+    </div>
+  
+  <div class="actions-card">
+    <h2>Actions disponibles</h2>
+    <div class="actions-grid">
+      <button 
+        class="action-btn primary"
+        tuiButton
+        type="button"
+        (click)="open.set(true)"
+      >
+        Gérer les terrains
+      </button>
+      <button class="action-btn secondary">
+        Voir les réservations
+      </button>
+      <button class="action-btn primary">
+        Messages
+      </button>
+    </div>
+  </div>
+
+  <div 
+    *ngIf="open()" 
+    class="button-group-container"
+  >
+    <div class="button-group-header">
+      <h3>Actions de gestion des terrains</h3>
+      <button 
+        type="button" 
+        class="close-btn"
+        (click)="open.set(false)"
+      >
+        ✕
+      </button>
+    </div>
+    
+    <div
+      tuiAppearance="floating"
+      tuiButtonGroup
+    >
+      <button type="button" class="action-btn">
+        <tui-icon icon="@tui.plus" />
+        Ajouter un terrain
+      </button>
+
+      <button type="button" class="action-btn">
+        <tui-icon icon="@tui.list" />
+        Voir la liste
+      </button>
+
+      <button type="button" class="action-btn">
+        <tui-icon icon="@tui.eye" />
+        Consulter
+      </button>
+    </div>
+  </div>
+
+<!-- 
+  <div *ngIf="currentUser$ | async as user" class="user-info-card">
+    <h2>Informations utilisateur</h2>
+    <div class="user-details">
+      <p><strong>Nom complet:</strong> {{ user.name }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Rôle:</strong> {{ user.role }}</p>
+    </div>
+  </div> -->

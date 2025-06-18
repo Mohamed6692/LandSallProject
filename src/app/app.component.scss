@@ -1,0 +1,32 @@
+// Styles globaux pour l'application
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+// Compenser la navbar fixe avec la nouvelle hauteur réduite
+tui-root {
+  padding-top: 55px; // Nouvelle hauteur de la navbar fixe (réduite de 70px à 55px)
+  
+  // Responsive
+  @media (max-width: 768px) {
+    padding-top: 50px; // Hauteur mobile réduite
+  }
+  
+  @media (max-width: 480px) {
+    padding-top: 45px; // Hauteur très mobile réduite
+  }
+}
+
+// Styles pour le contenu principal
+.main-content {
+  min-height: calc(100vh - 55px);
+  
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 50px);
+  }
+  
+  @media (max-width: 480px) {
+    min-height: calc(100vh - 45px);
+  }
+}
