@@ -1,3 +1,5 @@
+import { LandImage } from './land-image.model';
+
 export interface LandDTO {
     id: string;
     title: string;
@@ -9,4 +11,5 @@ export interface LandDTO {
     areaM2: number;
     price: number;
     sellerId: string;
+    images?: LandImage[];
 }

@@ -1,17 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { LandImage } from '../../shared/models/land-image.model';
+import { environment } from '../../../environments/environment';
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
+import { ConfigService } from './config.service';
+
+interface ApiResponse {
+    message: string;
+    images: LandImage[];
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class LandImageService {
+  private apiUrl = `${environment.apiUrl}/land-images`;
+
   constructor(
     private http: HttpClient,
     private apiService: ApiService,
-    private authService: AuthService
+    private authService: AuthService,
+    private configService: ConfigService
   ) {}
 
   uploadImage(file: File, landId: string): Observable<any> {
@@ -26,10 +38,12 @@ export class LandImageService {
     );
   }
 
-  getImagesByLandId(landId: string): Observable<any> {
-    return this.http.get(
-      `${this.apiService.landsUrlImage}/land/${landId}`,
-      { headers: this.authService.getAuthHeaders() }
+  getImagesByLandId(landId: string): Observable<LandImage[]> {
+    return this.http.get<ApiResponse>(`${this.apiUrl}/land/${landId}`, { headers: this.authService.getAuthHeaders() }).pipe(
+      map(response => response.images.map(image => ({
+        ...image,
+        imageUrl: `${this.configService.landsUrlImage}/${image.imageUrl}`
+      })))
     );
   }
 

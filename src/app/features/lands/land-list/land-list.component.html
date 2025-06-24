@@ -6,37 +6,50 @@
         tuiSurface="floating"
         class="land-card"
     >
+        <div class="image-container">
+            <img *ngIf="land.images && land.images.length > 0"
+                 [src]="land.images[0].imageUrl.replace('/api/land-images/', '/uploads/')"
+                 alt="{{ land.title }}"
+                 class="land-image"/>
+            <div *ngIf="!land.images || land.images.length === 0" class="image-placeholder">
+                <tui-icon icon="tuiIconPicture" class="placeholder-icon"></tui-icon>
+            </div>
+        </div>
         <div class="card-content-wrapper">
             <div class="card-header">
-                <div class="title-group">
-                    <h3 tuiTitle class="land-title">{{ land.title }}</h3>
-                    <p tuiSubtitle class="land-location">
-                        <tui-icon icon="tuiIconMapPin"></tui-icon>
-                        {{ land.location }}
-                    </p>
-                </div>
+                <h3 tuiTitle class="land-title">{{ land.title }}</h3>
+                <tui-badge *ngIf="land.status" status="info" class="land-status">{{ land.status }}</tui-badge>
             </div>
+            <div class="card-main-content">
+                <div class="info-content">
+                    
 
-            <p class="land-description">{{ land.description }}</p>
-        
-            <div class="details-grid">
-                <div class="detail-item">
-                    <tui-icon icon="tuiIconDollarSignLarge"></tui-icon>
-                    <strong>Prix :</strong>
-                    <span>{{ land.price | currency:'EUR':'symbol':'1.0-0' }}</span>
-                </div>
-                <div class="detail-item">
-                    <tui-icon icon="tuiIconBoxLarge"></tui-icon>
-                    <strong>Superficie :</strong>
-                    <span>{{ land.areaM2 }} m²</span>
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <span class="label">Location :</span>
+                            <span class="value price">{{ land.location }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Description :</span>
+                            <span class="value area">{{ land.description }}²</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <span class="label">Prix :</span>
+                            <span class="value price">{{ land.price | currency:'CFA ':'symbol':'1.0-0' }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Superficie :</span>
+                            <span class="value area">{{ land.areaM2 }} m²</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
             <div class="card-footer">
-                <tui-badge
-                    *ngIf="land.status"
-                    status="info"
-                >{{ land.status }}</tui-badge>
                 <span class="coords"><small>Lat: {{ land.latitude }}, Lon: {{ land.longitude }}</small></span>
             </div>
         </div>

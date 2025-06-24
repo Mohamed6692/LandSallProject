@@ -8,6 +8,10 @@ import { AuthService } from '../../../core/services/auth.service';
 import { ConfigService } from '../../../core/services/config.service';
 import { LandDTO } from '../../../shared/models/land.model';
 import { UserProfile } from '../../../shared/models/user.model';
+import { LandImageService } from '../../../core/services/land-image.service';
+import { forkJoin, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-land-list',
@@ -30,13 +34,17 @@ import { UserProfile } from '../../../shared/models/user.model';
 })
 export class LandListComponent implements OnInit {
   lands: LandDTO[] = [];
+  landsWithImages: LandDTO[] = [];
+  imageBaseUrl = environment.imageBaseUrl;
 
   constructor(
     private landsService: LandsService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
-    private configService: ConfigService
-    ) {}
+    private configService: ConfigService,
+    private landImageService: LandImageService
+    ) {
+    }
 
   ngOnInit(): void {
     const user: UserProfile | null = this.authService.getCurrentUserValue();
@@ -44,6 +52,7 @@ export class LandListComponent implements OnInit {
       this.landsService.getLandsByUserId(user.id).subscribe({
         next: (res: any) => {
           this.lands = res.page.content;
+          this.loadImagesForLands();
           this.cdr.markForCheck();
         },
         error: (err: any) => {
@@ -51,5 +60,24 @@ export class LandListComponent implements OnInit {
         }
       });
     }
+  }
+
+  loadImagesForLands(): void {
+    if (this.lands.length === 0) {
+      this.landsWithImages = [];
+      return;
+    }
+
+    const imageRequests = this.lands.map(land =>
+      this.landImageService.getImagesByLandId(land.id).pipe(
+        map(images => ({ ...land, images })),
+        catchError(() => of({ ...land, images: [] })) // En cas d'erreur, retourne le terrain sans images
+      )
+    );
+
+    forkJoin(imageRequests).subscribe(landsWithImages => {
+      this.lands = landsWithImages;
+      this.cdr.markForCheck();
+    });
   }
 }
