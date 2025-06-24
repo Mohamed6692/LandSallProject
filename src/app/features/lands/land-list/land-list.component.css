@@ -1,0 +1,131 @@
+:host {
+    display: block;
+    padding: 1.5rem;
+    background-color: var(--tui-base-02);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.land-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: pointer;
+    width: 100%;
+    max-width: 700px;
+    overflow: hidden;
+    padding: 0 !important;
+}
+
+.land-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.card-content-wrapper {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-grow: 1;
+    background-color: var(--tui-base-01);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.title-group {
+    flex-grow: 1;
+}
+
+.land-title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--tui-primary);
+}
+
+.land-location {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.9rem;
+}
+
+.land-description {
+    color: var(--tui-text-02);
+    line-height: 1.5;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.8rem 1.5rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.detail-item tui-icon {
+    color: var(--tui-primary);
+}
+
+.detail-item strong {
+    color: var(--tui-text-02);
+}
+
+.detail-item span {
+    font-weight: 500;
+    color: var(--tui-text-01);
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--tui-base-02);
+    padding-top: 1rem;
+    margin-top: auto;
+}
+
+.coords {
+    font-size: 0.8rem;
+    color: var(--tui-text-03);
+}
+
+.card-main-content {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.image-placeholder {
+    width: 160px;
+    min-width: 120px;
+    height: 160px;
+    background: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin-right: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

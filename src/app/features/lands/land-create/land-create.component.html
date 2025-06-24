@@ -1,0 +1,100 @@
+<div class="stepper-container">
+  <div class="stepper" [ngClass]="{'step-1': currentStep === 1, 'step-2': currentStep === 2}">
+    <!-- Step 1: Infos terrain -->
+    <form *ngIf="currentStep === 1 && !isLoading; else loadingTpl" [formGroup]="landForm" (ngSubmit)="goToStep2()" class="land-form-col step-form">
+      <div *ngIf="error" class="error">{{ error }}</div>
+      <div *ngIf="success" class="success">{{ success }}</div>
+      <div>
+        <label for="title">Titre</label>
+        <input id="title" formControlName="title" required />
+      </div>
+      <div>
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" required></textarea>
+      </div>
+      <div>
+        <label for="location">Localisation</label>
+        <input id="location" formControlName="location" required />
+      </div>
+      <div>
+        <label for="latitude">Latitude</label>
+        <input id="latitude" type="number" formControlName="latitude" required />
+      </div>
+      <div>
+        <label for="longitude">Longitude</label>
+        <input id="longitude" type="number" formControlName="longitude" required />
+      </div>
+      <div>
+        <label for="areaM2">Surface (m²)</label>
+        <input id="areaM2" type="number" formControlName="areaM2" required />
+      </div>
+      <div>
+        <label for="price">Prix</label>
+        <input id="price" type="number" formControlName="price" required />
+      </div>
+      <div class="land-form-actions">
+        <button tuiButton size="s" type="submit" class="btn-create">
+          Suivant
+        </button>
+        <button tuiButton size="s" type="button" (click)="cancel()" class="btn-cancel">
+          Annuler
+        </button>
+      </div>
+    </form>
+
+    <!-- Step 2: Upload images -->
+    <form *ngIf="currentStep === 2 && !isLoading; else loadingTpl" class="land-form-col step-form">
+      <div *ngIf="error" class="error">{{ error }}</div>
+      <div *ngIf="success" class="success">{{ success }}</div>
+      <div>
+        <label tuiInputFiles>
+          <input
+            tuiInputFiles
+            [formControl]="imageControl"
+            multiple
+          />
+          <ng-template let-dragged>
+            <div *ngIf="dragged; else base" class="content">
+              <tui-avatar appearance="secondary" src="@tui.droplet" />
+              <div>
+                Drop it like it's hot!<br /><br />
+              </div>
+            </div>
+            <ng-template #base>
+              <div class="content">
+                <tui-avatar appearance="secondary" src="@tui.cloud-upload" />
+                <div>
+                  Drag and drop file here or
+                  <a tuiLink>click to upload</a>
+                </div>
+              </div>
+            </ng-template>
+          </ng-template>
+        </label>
+      </div>
+      <tui-files class="tui-space_top-4" *ngIf="imageControl.value?.length">
+        <tui-file
+          *ngFor="let file of imageControl.value"
+          [file]="file"
+          [leftContent]="content"
+        >
+          <span class="tui-text_body-s-2">file is on checking</span>
+        </tui-file>
+      </tui-files>
+      <ng-template #content>
+        <tui-icon icon="@tui.clock" />
+      </ng-template>
+      <div class="land-form-actions">
+        <button tuiButton size="s" type="button" class="btn-create" [disabled]="isLoading" (click)="submitImages()">
+          Valider
+        </button>
+        <!-- <button tuiButton size="s" type="button" (click)="goToStep1()" class="btn-cancel">
+          Retour
+        </button> -->
+      </div>
+    </form>
+  </div>
+</div>
+<ng-template #loadingTpl>
+  <div>Création en cours...</div>
+</ng-template>

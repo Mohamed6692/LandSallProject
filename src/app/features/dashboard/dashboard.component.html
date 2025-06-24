@@ -48,14 +48,15 @@
         class="action-btn primary"
         tuiButton
         type="button"
+        size="s"
         (click)="open.set(true)"
       >
         Gérer les terrains
       </button>
-      <button class="action-btn secondary">
+      <button class="action-btn secondary" tuiButton type="button" size="s">
         Voir les réservations
       </button>
-      <button class="action-btn primary">
+      <button class="action-btn primary" tuiButton type="button" size="s">
         Messages
       </button>
     </div>
@@ -80,22 +81,31 @@
       tuiAppearance="floating"
       tuiButtonGroup
     >
-      <button type="button" class="action-btn">
+      <button type="button" class="action-btn" size="xs"  (click)="onClick()" >
         <tui-icon icon="@tui.plus" />
-        Ajouter un terrain
+        Ajouter un terrain ici
       </button>
 
-      <button type="button" class="action-btn">
+      <button type="button" class="action-btn" size="xs" (click)="goToLandList()">
         <tui-icon icon="@tui.list" />
-        Voir la liste
+        Voir ma liste
       </button>
 
-      <button type="button" class="action-btn">
+      <button type="button" class="action-btn" size="xs">
         <tui-icon icon="@tui.eye" />
-        Consulter
+        Consulter 
       </button>
     </div>
   </div>
+
+<!-- Affichage du formulaire de création de terrain -->
+<ng-container *ngIf="showLandCreate">
+  <div class="modal-overlay">
+    <div class="modal-content">
+      <app-land-create (close)="onLandCreateClose()"></app-land-create>
+    </div>
+  </div>
+</ng-container>
 
 <!-- 
   <div *ngIf="currentUser$ | async as user" class="user-info-card">

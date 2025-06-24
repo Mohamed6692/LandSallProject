@@ -11,7 +11,7 @@ $shadow-color: rgba(44, 85, 48, 0.15);
 
 // Navbar principale - STATIQUE avec hauteur réduite
 .navbar {
-  background: linear-gradient(135deg, $navbar-bg 0%, $navbar-bg-light 100%);
+  background: linear-gradient(135deg, #206a27, #112c14) !important;
   color: $text-white;
   padding: 0.6rem 2rem; // Réduction du padding vertical
   display: flex;
@@ -90,7 +90,7 @@ $shadow-color: rgba(44, 85, 48, 0.15);
   
   // Animation subtile
   &::before {
-    content: "👋";
+    content: "";
     margin-right: 0.3rem;
   }
 }

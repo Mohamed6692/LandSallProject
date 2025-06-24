@@ -37,7 +37,7 @@ $accent-color: #8bc34a;
 }
 
 // Titre principal avec style Taiga UI
-.dashboard-title {
+.dashboard-title, h1.dashboard-title, .dashboard-header h1 {
   color: $text-dark;
   margin-bottom: 0; // Supprimé car maintenant dans le header
   
@@ -49,6 +49,22 @@ $accent-color: #8bc34a;
     line-height: 24px;
     letter-spacing: 1.2;
   }
+
+  font-size: 1rem !important;
+  line-height: 1.1rem !important;
+}
+
+.actions-card h2,
+.charts-title,
+.user-info-card h2 {
+  font-size: 0.95rem !important;
+  margin-bottom: 0.4rem;
+}
+
+.button-group-header h3 {
+  font-size: 0.85rem !important;
+  font-weight: 500;
+  margin: 0;
 }
 
 // Carte d'informations utilisateur
@@ -396,4 +412,30 @@ $accent-color: #8bc34a;
     padding: 1rem;
     font-size: 0.8rem;
   }
+}
+
+.small-input {
+  height: 25px;
+  max-height: 28px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.2);
+  min-width: 350px;
+  max-width: 95vw;
 } 

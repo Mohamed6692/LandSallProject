@@ -80,12 +80,15 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  getAuthHeaders(): HttpHeaders {
+  getAuthHeaders(isJson: boolean = true): HttpHeaders {
     const token = this.getToken();
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
+    let headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
+    if (isJson) {
+      headers = headers.set('Content-Type', 'application/json');
+    }
+    return headers;
   }
 
   getCurrentUserValue(): UserProfile | null {

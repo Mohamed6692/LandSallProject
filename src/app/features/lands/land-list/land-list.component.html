@@ -1,0 +1,45 @@
+<div class="container">
+    <div
+        *ngFor="let land of lands"
+        tuiCardLarge
+        tuiCell
+        tuiSurface="floating"
+        class="land-card"
+    >
+        <div class="card-content-wrapper">
+            <div class="card-header">
+                <div class="title-group">
+                    <h3 tuiTitle class="land-title">{{ land.title }}</h3>
+                    <p tuiSubtitle class="land-location">
+                        <tui-icon icon="tuiIconMapPin"></tui-icon>
+                        {{ land.location }}
+                    </p>
+                </div>
+            </div>
+
+            <p class="land-description">{{ land.description }}</p>
+        
+            <div class="details-grid">
+                <div class="detail-item">
+                    <tui-icon icon="tuiIconDollarSignLarge"></tui-icon>
+                    <strong>Prix :</strong>
+                    <span>{{ land.price | currency:'EUR':'symbol':'1.0-0' }}</span>
+                </div>
+                <div class="detail-item">
+                    <tui-icon icon="tuiIconBoxLarge"></tui-icon>
+                    <strong>Superficie :</strong>
+                    <span>{{ land.areaM2 }} m²</span>
+                </div>
+            </div>
+            
+            <div class="card-footer">
+                <tui-badge
+                    *ngIf="land.status"
+                    status="info"
+                >{{ land.status }}</tui-badge>
+                <span class="coords"><small>Lat: {{ land.latitude }}, Lon: {{ land.longitude }}</small></span>
+            </div>
+        </div>
+    </div>
+</div>
+

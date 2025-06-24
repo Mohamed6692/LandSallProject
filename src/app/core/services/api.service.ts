@@ -26,6 +26,12 @@ export class ApiService {
     return this.configService.landsUrl;
   }
 
+  //Urls pour les imaages terrains 
+  get landsUrlImage(): string{
+    return this.configService.landsUrlImage;
+
+  }
+
   get landByIdUrl(): (id: string) => string {
     return (id: string) => `${this.configService.landsUrl}/${id}`;
   }

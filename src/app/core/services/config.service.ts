@@ -20,6 +20,11 @@ export class ConfigService {
     return `${this.apiUrl}/auth`;
   }
 
+  get landsUrlImage(): string {
+    return `${this.apiUrl}/land-images`;
+  }
+
+
   get landsUrl(): string {
     return `${this.apiUrl}/lands`;
   }
